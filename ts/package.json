@@ -1,0 +1,84 @@
+{
+	"name": "@notoofly/auth-server",
+	"version": "1.0.0",
+	"description": "Notoofly Auth Server - JWT verification and authorization middleware",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"test": "bun test",
+		"lint": "biome check .",
+		"lint:fix": "biome check . --write",
+		"type-check": "tsc --noEmit",
+		"clean": "rm -rf dist"
+	},
+	"keywords": [
+		"authentication",
+		"authorization",
+		"jwt",
+		"jwks",
+		"middleware",
+		"express",
+		"elysia",
+		"typescript",
+		"notoofly"
+	],
+	"author": "Notoofly Team",
+	"license": "Proprietary",
+	"dependencies": {
+		"jose": "^6.2.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.8",
+		"@types/express": "^5.0.6",
+		"@types/node": "^20.19.37",
+		"elysia": "^1.4.19",
+		"express": "^4.21.2",
+		"typescript": "^5.9.3"
+	},
+	"peerDependencies": {
+		"elysia": "^1.0.0",
+		"express": "^4.0.0"
+	},
+	"peerDependenciesMeta": {
+		"express": {
+			"optional": true
+		},
+		"elysia": {
+			"optional": true
+		}
+	},
+	"files": [
+		"dist/**/*",
+		"README.md",
+		"LICENSE"
+	],
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./express": {
+			"import": "./dist/adapters/express/index.js",
+			"types": "./dist/adapters/express/index.d.ts"
+		},
+		"./elysia": {
+			"import": "./dist/adapters/elysia/index.js",
+			"types": "./dist/adapters/elysia/index.d.ts"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/notoofly/auth-server.git"
+	},
+	"bugs": {
+		"url": "https://github.com/notoofly/auth-server/issues"
+	},
+	"homepage": "https://github.com/notoofly/auth-server#readme",
+	"engines": {
+		"node": ">=18.0.0"
+	}
+}
