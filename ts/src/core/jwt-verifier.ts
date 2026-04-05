@@ -1,4 +1,4 @@
-import { importJWK, type JWTPayload, jwtVerify } from "jose";
+import { type CryptoKey, importJWK, type JWTPayload, jwtVerify } from "jose";
 import type {
 	AuthUser,
 	JwksCache,
@@ -64,7 +64,7 @@ export class JwtVerifier {
 		return this.verifyAccessToken(token);
 	}
 
-	private async getPublicKey(keyId: string): Promise<Uint8Array> {
+	private async getPublicKey(keyId: string): Promise<CryptoKey | Uint8Array> {
 		const jwks = await this.getJwks();
 		const key = jwks.keys.find((k) => k.kid === keyId);
 
@@ -127,7 +127,7 @@ export class JwtVerifier {
 		}
 
 		try {
-			const header = JSON.parse(atob(parts[0]));
+			const header = JSON.parse(atob(parts[0] ?? "{}"));
 			return header;
 		} catch {
 			throw new Error("Failed to decode token header");
@@ -137,7 +137,7 @@ export class JwtVerifier {
 	private mapPayloadToAuthUser(payload: JWTPayload): AuthUser {
 		return {
 			sub: payload.sub!,
-			email: typeof payload.email === "string" ? payload.email : undefined,
+			email: typeof payload.email === "string" ? payload.email : "",
 			roles: (payload.roles as string[]) ?? [],
 			permissions: (payload.permissions as string[]) ?? [],
 			iat: payload.iat!,
@@ -147,7 +147,7 @@ export class JwtVerifier {
 				typeof payload.aud === "string"
 					? payload.aud
 					: Array.isArray(payload.aud)
-						? payload.aud[0]
+						? (payload.aud[0] ?? "")
 						: "",
 		};
 	}

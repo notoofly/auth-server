@@ -1,6 +1,6 @@
 {
 	"name": "@notoofly/auth-server",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Notoofly Auth Server - JWT verification and authorization middleware",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -10,10 +10,12 @@
 		"build": "tsc",
 		"dev": "tsc --watch",
 		"test": "bun test",
+		"test:ci": "bun test --coverage",
 		"lint": "biome check .",
 		"lint:fix": "biome check . --write",
 		"type-check": "tsc --noEmit",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf dist",
+		"prepublishOnly": "npm run build"
 	},
 	"keywords": [
 		"authentication",
@@ -27,7 +29,7 @@
 		"notoofly"
 	],
 	"author": "Notoofly Team",
-	"license": "Proprietary",
+	"license": "MIT",
 	"dependencies": {
 		"jose": "^6.2.2"
 	},
@@ -40,7 +42,7 @@
 		"typescript": "^5.9.3"
 	},
 	"peerDependencies": {
-		"elysia": "^1.0.0",
+		"elysia": "^1.4.19",
 		"express": "^4.0.0"
 	},
 	"peerDependenciesMeta": {
@@ -54,7 +56,8 @@
 	"files": [
 		"dist/**/*",
 		"README.md",
-		"LICENSE"
+		"LICENSE",
+		"CHANGELOG.md"
 	],
 	"exports": {
 		".": {
